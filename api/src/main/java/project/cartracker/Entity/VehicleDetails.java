@@ -2,9 +2,7 @@ package project.cartracker.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import java.util.UUID;
 
@@ -21,11 +19,28 @@ public class VehicleDetails {
         private Integer maxFuelVolume;
         private  String lastServiceDate;
 
-        @OneToOne
-        private NewVehicle newVehicle;
+/*    @OneToOne
+    @JoinColumn(name = "vehicle_id"
+    private NewVehicle newVehicle;*/
 
     public VehicleDetails(){
         this.id= UUID.randomUUID().toString();
+    }
+/*
+    public String getVin() {
+        return vin;
+    }
+
+    public void setVin(String vin) {
+        this.vin = vin;
+    }*/
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getVin() {
@@ -84,11 +99,11 @@ public class VehicleDetails {
         this.lastServiceDate = lastServiceDate;
     }
 
-    public NewVehicle getNewVehicle() {
+/*    public NewVehicle getNewVehicle() {
         return newVehicle;
     }
 
     public void setNewVehicle(NewVehicle newVehicle) {
         this.newVehicle = newVehicle;
-    }
+    }*/
 }

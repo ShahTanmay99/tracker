@@ -19,19 +19,19 @@ public class VehicleServiceImpl implements VehicleService {
     @Transactional
     public NewVehicle postVehicle(NewVehicle newVehicle) {
         //repository.checkAlerts(newVehicle);
-/*        NewVehicle existing = repository.findByVin(newVehicle.getVin());
+        NewVehicle existing = repository.findbyVid(newVehicle.getVin());
         if (existing != null) {
             throw new BadRequestException("Vehicle with Id " + newVehicle.getVin() + " already exists.");
-        }*/
+        }
         return repository.postVehicle(newVehicle);
     }
     @Transactional
     public VehicleDetails putVehicle(VehicleDetails vehicleDetails) {
 
-        VehicleDetails existing = repository.findbyVin(vehicleDetails.getVin());
+/*        VehicleDetails existing = repository.findbyVin(vehicleDetails.getVin());
         if (existing != null) {
             return repository.updateVehicle(vehicleDetails, existing);
-        }
+        }*/
         return repository.putVehicle(vehicleDetails);
     }
 }

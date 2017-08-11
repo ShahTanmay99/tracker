@@ -38,6 +38,7 @@ public class VehicleRepositoryImpl implements VehicleRepository{
         }
 
         checkAlerts(newVehicle);*/
+        entityManager.persist(list.get(0).getTires());
         entityManager.persist(list.get(0));
         return newVehicle;
     }
@@ -52,7 +53,16 @@ public class VehicleRepositoryImpl implements VehicleRepository{
             return null;
         }
     }
-
+    public NewVehicle findbyVid(String vin) {
+        TypedQuery<NewVehicle> query = entityManager.createQuery("SELECT vehicle FROM NewVehicle vehicle where vehicle.vin=:paramvin", NewVehicle.class);
+        query.setParameter("paramvin", vin);
+        List<NewVehicle> resultList = query.getResultList();
+        if (resultList != null && resultList.size() == 1) {
+            return resultList.get(0);
+        } else {
+            return null;
+        }
+    }
     public VehicleDetails updateVehicle(VehicleDetails vehicleDetails,VehicleDetails existing) {
         entityManager.remove(existing);
         entityManager.persist(vehicleDetails);

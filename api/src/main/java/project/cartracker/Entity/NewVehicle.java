@@ -4,6 +4,7 @@ import sun.plugin.util.UIUtil;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -11,12 +12,15 @@ import java.util.UUID;
 @Entity
 public class NewVehicle{
 
-    @Id
+
+/*
     private String id;
+*/  @Id
+    @Column(name = "vehicle_id")
     private String vin;
     private float latitude;
     private float longitude;
-    private String timestamp;
+    private Timestamp timestamp;
     private float fuelVolume;
     private int speed;
     private int engineHp;
@@ -28,8 +32,32 @@ public class NewVehicle{
     private String rpmAlert;
     private String tireAlert;
     private String fuelAlert;
+    @OneToOne
+    private Tyre tires;
+    @OneToOne
+    VehicleDetails vehicleDetails;
+
     public NewVehicle(){
+/*
         this.id = UUID.randomUUID().toString();
+*/
+        this.timestamp = new Timestamp(System.currentTimeMillis());
+    }
+
+    public Tyre getTires() {
+        return tires;
+    }
+
+    public void setTires(Tyre tires) {
+        this.tires = tires;
+    }
+
+    public VehicleDetails getVehicleDetails() {
+        return vehicleDetails;
+    }
+
+    public void setVehicleDetails(VehicleDetails vehicleDetails) {
+        this.vehicleDetails = vehicleDetails;
     }
     //private Map<String, Integer> tires;
 /*
@@ -108,11 +136,11 @@ public class NewVehicle{
         this.longitude = longitude;
     }
 
-    public String getTimestamp() {
+    public Timestamp getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(String timestamp) {
+    public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
     }
 
