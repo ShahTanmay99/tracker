@@ -15,17 +15,30 @@ public class VehicleRepositoryImpl implements VehicleRepository{
 
     @PersistenceContext private EntityManager entityManager;
     public NewVehicle postVehicle(NewVehicle newVehicle) {
-        /*ArrayList<NewVehicle> list = new ArrayList<NewVehicle>();
-        if(list == null){
+        ArrayList<NewVehicle> list = new ArrayList<NewVehicle>();
+        if(list.size()==0)
+        list.add(newVehicle);
+        else {
+            for (int i = 0; i < list.size(); i++) {
+                //newVehicle = new NewVehicle();
+                list.add(newVehicle);
+            }
+        }
+/*        for(int i = 0; i<list.size(); i++){
+            entityManager.persist(list.get(i));
+        }*/
+
+/*        if(list == null){
 
             for (int i =0; list)
         }
         list.add(newVehicle);
         for (int i=0; i<list.size();i++){
             entityManager.persist(list.get(i));
-        }*/
-        checkAlerts(newVehicle);
-        entityManager.persist(newVehicle);
+        }
+
+        checkAlerts(newVehicle);*/
+        entityManager.persist(list.get(0));
         return newVehicle;
     }
 
@@ -47,8 +60,16 @@ public class VehicleRepositoryImpl implements VehicleRepository{
     }
 
     public VehicleDetails putVehicle(VehicleDetails vehicleDetails) {
-
-        entityManager.persist(vehicleDetails);
+        ArrayList<VehicleDetails> list = new ArrayList<VehicleDetails>();
+        if(list.size()==0)
+            list.add(vehicleDetails);
+        else {
+            for (int i = 0; i < list.size(); i++) {
+                //newVehicle = new NewVehicle();
+                list.add(vehicleDetails);
+            }
+        }
+        entityManager.persist(list.get(0));
         return vehicleDetails;
     }
 

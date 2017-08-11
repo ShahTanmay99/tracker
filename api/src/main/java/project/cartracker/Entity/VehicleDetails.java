@@ -1,8 +1,11 @@
 package project.cartracker.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.UUID;
 
 @Entity
@@ -13,9 +16,9 @@ public class VehicleDetails {
         private String vin;
         private  String make;
         private  String model;
-        private  int year;
-        private  int redlineRpm;
-        private  int maxFuelVolume;
+        private  Integer year;
+        private  Integer redlineRpm;
+        private Integer maxFuelVolume;
         private  String lastServiceDate;
 
         @OneToOne
@@ -24,20 +27,13 @@ public class VehicleDetails {
     public VehicleDetails(){
         this.id= UUID.randomUUID().toString();
     }
+
     public String getVin() {
         return vin;
     }
 
     public void setVin(String vin) {
         this.vin = vin;
-    }
-
-    public NewVehicle getNewVehicle() {
-        return newVehicle;
-    }
-
-    public void setNewVehicle(NewVehicle newVehicle) {
-        this.newVehicle = newVehicle;
     }
 
     public String getMake() {
@@ -56,27 +52,27 @@ public class VehicleDetails {
         this.model = model;
     }
 
-    public int getYear() {
+    public Integer getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(Integer year) {
         this.year = year;
     }
 
-    public int getRedlineRpm() {
+    public Integer getRedlineRpm() {
         return redlineRpm;
     }
 
-    public void setRedlineRpm(int redlineRpm) {
+    public void setRedlineRpm(Integer redlineRpm) {
         this.redlineRpm = redlineRpm;
     }
 
-    public int getMaxFuelVolume() {
+    public Integer getMaxFuelVolume() {
         return maxFuelVolume;
     }
 
-    public void setMaxFuelVolume(int maxFuelVolume) {
+    public void setMaxFuelVolume(Integer maxFuelVolume) {
         this.maxFuelVolume = maxFuelVolume;
     }
 
@@ -86,5 +82,13 @@ public class VehicleDetails {
 
     public void setLastServiceDate(String lastServiceDate) {
         this.lastServiceDate = lastServiceDate;
+    }
+
+    public NewVehicle getNewVehicle() {
+        return newVehicle;
+    }
+
+    public void setNewVehicle(NewVehicle newVehicle) {
+        this.newVehicle = newVehicle;
     }
 }

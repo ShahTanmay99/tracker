@@ -1,13 +1,18 @@
 package project.cartracker.Entity;
 
+import sun.plugin.util.UIUtil;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 @Entity
 public class NewVehicle{
 
     @Id
+    private String id;
     private String vin;
     private float latitude;
     private float longitude;
@@ -23,6 +28,10 @@ public class NewVehicle{
     private String rpmAlert;
     private String tireAlert;
     private String fuelAlert;
+    public NewVehicle(){
+        this.id = UUID.randomUUID().toString();
+    }
+    //private Map<String, Integer> tires;
 /*
     @OneToOne
     private Tyre tires;*//*
@@ -32,6 +41,14 @@ public class NewVehicle{
     }
 
     public void setTires(Tyre tires) {
+        this.tires = tires;
+    }*/
+
+/*    public Map<String, Integer> getTires() {
+        return tires;
+    }
+
+    public void setTires(Map<String, Integer> tires) {
         this.tires = tires;
     }*/
 
