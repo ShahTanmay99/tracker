@@ -12,10 +12,7 @@ import java.util.UUID;
 @Entity
 public class NewVehicle{
 
-
-/*
-    private String id;
-*/  @Id
+    @Id
     @Column(name = "vehicle_id")
     private String vin;
     private float latitude;
@@ -34,8 +31,6 @@ public class NewVehicle{
     private String fuelAlert;
     @OneToOne
     private Tyre tires;
-    @OneToOne
-    VehicleDetails vehicleDetails;
 
     public NewVehicle(){
 /*
@@ -51,34 +46,6 @@ public class NewVehicle{
     public void setTires(Tyre tires) {
         this.tires = tires;
     }
-
-    public VehicleDetails getVehicleDetails() {
-        return vehicleDetails;
-    }
-
-    public void setVehicleDetails(VehicleDetails vehicleDetails) {
-        this.vehicleDetails = vehicleDetails;
-    }
-    //private Map<String, Integer> tires;
-/*
-    @OneToOne
-    private Tyre tires;*//*
-
-    public Tyre getTires() {
-        return tires;
-    }
-
-    public void setTires(Tyre tires) {
-        this.tires = tires;
-    }*/
-
-/*    public Map<String, Integer> getTires() {
-        return tires;
-    }
-
-    public void setTires(Map<String, Integer> tires) {
-        this.tires = tires;
-    }*/
 
     public String getRpmAlert() {
         return rpmAlert;
