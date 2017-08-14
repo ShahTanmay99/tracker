@@ -1,11 +1,9 @@
 package project.cartracker.Repository;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import project.cartracker.Entity.Alerts;
 import project.cartracker.Entity.NewVehicle;
 import project.cartracker.Entity.VehicleDetails;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -23,26 +21,9 @@ public class VehicleRepositoryImpl implements VehicleRepository{
         list.add(newVehicle);
         else {
             for (int i = 0; i < list.size(); i++) {
-                //newVehicle = new NewVehicle();
                 list.add(newVehicle);
             }
         }
-/*        for(int i = 0; i<list.size(); i++){
-            entityManager.persist(list.get(i));
-        }*/
-
-/*        if(list == null){
-
-            for (int i =0; list)
-        }
-        list.add(newVehicle);
-        for (int i=0; i<list.size();i++){
-            entityManager.persist(list.ge
-
-
-          t(i));
-        }
-*/
         entityManager.persist(list.get(0).getTires());
         entityManager.persist(alerts);
         entityManager.persist(list.get(0));
@@ -50,7 +31,7 @@ public class VehicleRepositoryImpl implements VehicleRepository{
     }
 
     public VehicleDetails findbyVin(String vin) {
-        TypedQuery<VehicleDetails> query = entityManager.createQuery("SELECT vehicle FROM VehicleDetails vehicle where vehicle.vin=:paramvin", VehicleDetails.class);
+        TypedQuery<VehicleDetails> query = entityManager.createNamedQuery("VehicleDetails.findByVin", VehicleDetails.class);
         query.setParameter("paramvin", vin);
         List<VehicleDetails> resultList = query.getResultList();
         if (resultList != null && resultList.size() == 1) {
@@ -60,7 +41,7 @@ public class VehicleRepositoryImpl implements VehicleRepository{
         }
     }
     public NewVehicle findbyVid(String vin) {
-        TypedQuery<NewVehicle> query = entityManager.createQuery("SELECT vehicle FROM NewVehicle vehicle where vehicle.vin=:paramvin", NewVehicle.class);
+        TypedQuery<NewVehicle> query = entityManager.createNamedQuery("NewVehicle.findByVin", NewVehicle.class);
         query.setParameter("paramvin", vin);
         List<NewVehicle> resultList = query.getResultList();
         if (resultList != null && resultList.size() == 1) {
@@ -122,5 +103,4 @@ public class VehicleRepositoryImpl implements VehicleRepository{
             alerts.setCoolantandLightAlert("LOW");
         return alerts;
     }
-
 }

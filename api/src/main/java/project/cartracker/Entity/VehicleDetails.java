@@ -1,46 +1,28 @@
 package project.cartracker.Entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
-import java.util.UUID;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "VehicleDetails.findByVin", query = "SELECT vehicle FROM VehicleDetails vehicle where vehicle.vin=:paramvin")
+})
 public class VehicleDetails {
 
         @Id
+        @Column(name = "Vehicle_Id",columnDefinition = "VARCHAR(17)")
         private String vin;
+        @Column(name = "Make",columnDefinition = "VARCHAR(15)")
         private  String make;
+        @Column(name = "Model",columnDefinition = "VARCHAR(15)")
         private  String model;
+        @Column(name = "Year",columnDefinition = "INT(4)")
         private  Integer year;
+        @Column(name = "RedLineRPM",columnDefinition = "INT(4)")
         private  Integer redlineRpm;
+        @Column(name = "MaxFuelVolume",columnDefinition = "INT(2)")
         private Integer maxFuelVolume;
+        @Column(name = "LastServiceDate")
         private  String lastServiceDate;
-
-/*    @OneToOne
-    @JoinColumn(name = "vehicle_id"
-    private NewVehicle newVehicle;*/
-
-    public VehicleDetails(){
-        /*this.id= UUID.randomUUID().toString();*/
-    }
-/*
-    public String getVin() {
-        return vin;
-    }
-
-    public void setVin(String vin) {
-        this.vin = vin;
-    }*/
-
- /*   public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }*/
 
 
     public String getVin() {
@@ -99,11 +81,4 @@ public class VehicleDetails {
         this.lastServiceDate = lastServiceDate;
     }
 
-/*    public NewVehicle getNewVehicle() {
-        return newVehicle;
-    }
-
-    public void setNewVehicle(NewVehicle newVehicle) {
-        this.newVehicle = newVehicle;
-    }*/
 }

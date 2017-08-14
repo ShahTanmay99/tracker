@@ -5,7 +5,6 @@ import project.cartracker.Entity.NewVehicle;
 import project.cartracker.Entity.VehicleDetails;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public interface VehicleRepository {
     NewVehicle postVehicle(NewVehicle newVehicle, Alerts alerts);

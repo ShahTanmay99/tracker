@@ -1,5 +1,6 @@
 package project.cartracker.Entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.UUID;
@@ -8,10 +9,15 @@ import java.util.UUID;
 public class Alerts {
 
     @Id
+    @Column(name = "Alert_Id",columnDefinition = "VARCHAR(36)")
     private String id;
+    @Column(name = "CoolantAndLightAlert",columnDefinition = "VARCHAR(8)")
     private String CoolantandLightAlert;
+    @Column(name = "RPM_Alert",columnDefinition = "VARCHAR(8)")
     private String rpmAlert;
+    @Column(name = "TireAlert",columnDefinition = "VARCHAR(8)")
     private String tireAlert;
+    @Column(name = "FuelAlert",columnDefinition = "VARCHAR(8)")
     private String fuelAlert;
 
     public Alerts(){
