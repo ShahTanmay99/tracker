@@ -11,6 +11,7 @@ import project.cartracker.Service.VehicleService;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -28,7 +29,7 @@ public class VehicleController {
     @RequestMapping(method = RequestMethod.PUT, value = "/vehicles",
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public VehicleDetails putVehicle(@RequestBody VehicleDetails vehicleDetails) {
+    public VehicleDetails putVehicle(@RequestBody ArrayList<VehicleDetails> vehicleDetails) {
         return service.putVehicle(vehicleDetails);
     }
 }

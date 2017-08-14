@@ -25,18 +25,23 @@ public class NewVehicle{
     private boolean engineCoolantLow;
     private boolean cruiseControlOn;
     private int engineRpm;
-    private String CoolantandLightAlert;
-    private String rpmAlert;
-    private String tireAlert;
-    private String fuelAlert;
+
+    @OneToOne
+    private Alerts alerts;
+
     @OneToOne
     private Tyre tires;
 
     public NewVehicle(){
-/*
-        this.id = UUID.randomUUID().toString();
-*/
         this.timestamp = new Timestamp(System.currentTimeMillis());
+    }
+
+    public Alerts getAlerts() {
+        return alerts;
+    }
+
+    public void setAlerts(Alerts alerts) {
+        this.alerts = alerts;
     }
 
     public Tyre getTires() {
@@ -45,38 +50,6 @@ public class NewVehicle{
 
     public void setTires(Tyre tires) {
         this.tires = tires;
-    }
-
-    public String getRpmAlert() {
-        return rpmAlert;
-    }
-
-    public void setRpmAlert(String rpmAlert) {
-        this.rpmAlert = rpmAlert;
-    }
-
-    public String getTireAlert() {
-        return tireAlert;
-    }
-
-    public void setTireAlert(String tireAlert) {
-        this.tireAlert = tireAlert;
-    }
-
-    public String getFuelAlert() {
-        return fuelAlert;
-    }
-
-    public void setFuelAlert(String fuelAlert) {
-        this.fuelAlert = fuelAlert;
-    }
-
-    public String getCoolantandLightAlert() {
-        return CoolantandLightAlert;
-    }
-
-    public void setCoolantandLightAlert(String coolantandLightAlert) {
-        this.CoolantandLightAlert = coolantandLightAlert;
     }
 
     public String getVin() {

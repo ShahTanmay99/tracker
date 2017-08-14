@@ -1,6 +1,8 @@
 package project.cartracker.Repository;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import project.cartracker.Entity.Alerts;
 import project.cartracker.Entity.NewVehicle;
 import project.cartracker.Entity.VehicleDetails;
 
@@ -14,7 +16,8 @@ import java.util.List;
 public class VehicleRepositoryImpl implements VehicleRepository{
 
     @PersistenceContext private EntityManager entityManager;
-    public NewVehicle postVehicle(NewVehicle newVehicle) {
+    public NewVehicle postVehicle(NewVehicle newVehicle, Alerts alerts) {
+
         ArrayList<NewVehicle> list = new ArrayList<NewVehicle>();
         if(list.size()==0)
         list.add(newVehicle);
@@ -34,11 +37,14 @@ public class VehicleRepositoryImpl implements VehicleRepository{
         }
         list.add(newVehicle);
         for (int i=0; i<list.size();i++){
-            entityManager.persist(list.get(i));
+            entityManager.persist(list.ge
+
+
+          t(i));
         }
 */
-        checkAlerts(newVehicle);
         entityManager.persist(list.get(0).getTires());
+        entityManager.persist(alerts);
         entityManager.persist(list.get(0));
         return newVehicle;
     }
@@ -63,62 +69,58 @@ public class VehicleRepositoryImpl implements VehicleRepository{
             return null;
         }
     }
-    public VehicleDetails updateVehicle(VehicleDetails vehicleDetails,VehicleDetails existing) {
-        entityManager.remove(existing);
-        entityManager.persist(vehicleDetails);
-        return vehicleDetails;
+    public VehicleDetails updateVehicle(ArrayList<VehicleDetails> vehicleDetails) {
+        entityManager.merge(vehicleDetails.get(0));
+        return vehicleDetails.get(0);
     }
 
-    public VehicleDetails putVehicle(VehicleDetails vehicleDetails) {
-        ArrayList<VehicleDetails> list = new ArrayList<VehicleDetails>();
-        if(list.size()==0)
-            list.add(vehicleDetails);
-        else {
-            for (int i = 0; i < list.size(); i++) {
-                //newVehicle = new NewVehicle();
-                list.add(vehicleDetails);
-            }
-        }
-        entityManager.persist(list.get(0));
-        return vehicleDetails;
+    public VehicleDetails putVehicle(ArrayList<VehicleDetails> vehicleDetails) {
+        entityManager.persist(vehicleDetails.get(0));
+        return vehicleDetails.get(0);
     }
-
-    public void checkAlerts(NewVehicle vehicle) {
+    public Alerts checkAlerts(NewVehicle vehicle) {
+        Alerts alerts = new Alerts();
         VehicleDetails existing = findbyVin(vehicle.getVin());
-        checkRpmAlert(vehicle,existing);
-        checkFuelAlert(vehicle,existing);
-        checkTireAlert(vehicle);
-        checkLightCoolantAlert(vehicle);
+        checkRpmAlert(vehicle, existing, alerts);
+        checkFuelAlert(vehicle,existing, alerts);
+        checkTireAlert(vehicle, alerts);
+        checkLightCoolantAlert(vehicle,alerts);
+        //entityManager.persist(alerts);
+        return alerts;
     }
-
-    public void checkRpmAlert(NewVehicle vehicle, VehicleDetails existing) {
-        vehicle.setRpmAlert("NO ALERT");
+    public Alerts checkRpmAlert(NewVehicle vehicle, VehicleDetails existing, Alerts alerts) {
+        alerts.setRpmAlert("NO ALERT");
         if (existing != null) {
             if (existing.getRedlineRpm() < vehicle.getEngineRpm())
-                vehicle.setRpmAlert("HIGH");
+               alerts.setRpmAlert("HIGH");
         }
+        return alerts;
     }
-    public void checkFuelAlert(NewVehicle vehicle, VehicleDetails existing){
-        vehicle.setFuelAlert("NO ALERT");
+    Alerts checkFuelAlert(NewVehicle vehicle, VehicleDetails existing, Alerts alerts){
+        alerts.setFuelAlert("NO ALERT");
         if(existing != null) {
             if (vehicle.getFuelVolume() < ((0.1) * existing.getMaxFuelVolume()))
-                vehicle.setFuelAlert("MEDIUM");
+                alerts.setFuelAlert("MEDIUM");
         }
+        return alerts;
     }
-    public void checkTireAlert(NewVehicle vehicle){
-        vehicle.setTireAlert("NO ALERT");
+    Alerts checkTireAlert(NewVehicle vehicle,Alerts alerts){
+        alerts.setTireAlert("NO ALERT");
         if((vehicle.getTires().getFrontLeft()<32)||(vehicle.getTires().getFrontLeft()>36))
-            vehicle.setTireAlert("LOW");
-        if((vehicle.getTires().getFrontRight()<32)||(vehicle.getTires().getFrontRight()>36))
-            vehicle.setTireAlert("LOW");
-        if((vehicle.getTires().getRearLeft()<32)||(vehicle.getTires().getRearRight()>36))
-            vehicle.setTireAlert("LOW");
-        if((vehicle.getTires().getRearRight()<32)||(vehicle.getTires().getRearRight()>36))
-            vehicle.setTireAlert("LOW");
+            alerts.setTireAlert("LOW");
+        else if((vehicle.getTires().getFrontRight()<32)||(vehicle.getTires().getFrontRight()>36))
+            alerts.setTireAlert("LOW");
+        else if((vehicle.getTires().getRearLeft()<32)||(vehicle.getTires().getRearRight()>36))
+            alerts.setTireAlert("LOW");
+        else if((vehicle.getTires().getRearRight()<32)||(vehicle.getTires().getRearRight()>36))
+            alerts.setTireAlert("LOW");
+        return alerts;
     }
-    public void checkLightCoolantAlert(NewVehicle vehicle){
-        vehicle.setCoolantandLightAlert("NO ALERT");
+    Alerts checkLightCoolantAlert(NewVehicle vehicle, Alerts alerts){
+        alerts.setCoolantandLightAlert("NO ALERT");
         if(vehicle.isEngineCoolantLow() || vehicle.isCheckEngineLightOn())
-            vehicle.setCoolantandLightAlert("LOW");
+            alerts.setCoolantandLightAlert("LOW");
+        return alerts;
     }
+
 }
