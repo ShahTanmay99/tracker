@@ -1,43 +1,36 @@
 package project.cartracker.Entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import java.util.UUID;
+import javax.persistence.*;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "VehicleDetails.findByVin", query = "SELECT vehicle FROM VehicleDetails vehicle where vehicle.vin=:paramvin")
+})
 public class VehicleDetails {
 
         @Id
-        private String id;
+        //@Column(name = "Vehicle_Id",columnDefinition = "VARCHAR(17)")
         private String vin;
+        @Column(name = "Make",columnDefinition = "VARCHAR(15)")
         private  String make;
+        @Column(name = "Model",columnDefinition = "VARCHAR(15)")
         private  String model;
-        private  int year;
-        private  int redlineRpm;
-        private  int maxFuelVolume;
+        @Column(name = "Year",columnDefinition = "INT(4)")
+        private  Integer year;
+        @Column(name = "RedLineRPM",columnDefinition = "INT(4)")
+        private  Integer redlineRpm;
+        @Column(name = "MaxFuelVolume",columnDefinition = "INT(2)")
+        private Integer maxFuelVolume;
+        @Column(name = "LastServiceDate")
         private  String lastServiceDate;
 
-        @OneToOne
-        private NewVehicle newVehicle;
 
-    public VehicleDetails(){
-        this.id= UUID.randomUUID().toString();
-    }
     public String getVin() {
         return vin;
     }
 
     public void setVin(String vin) {
         this.vin = vin;
-    }
-
-    public NewVehicle getNewVehicle() {
-        return newVehicle;
-    }
-
-    public void setNewVehicle(NewVehicle newVehicle) {
-        this.newVehicle = newVehicle;
     }
 
     public String getMake() {
@@ -56,27 +49,27 @@ public class VehicleDetails {
         this.model = model;
     }
 
-    public int getYear() {
+    public Integer getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(Integer year) {
         this.year = year;
     }
 
-    public int getRedlineRpm() {
+    public Integer getRedlineRpm() {
         return redlineRpm;
     }
 
-    public void setRedlineRpm(int redlineRpm) {
+    public void setRedlineRpm(Integer redlineRpm) {
         this.redlineRpm = redlineRpm;
     }
 
-    public int getMaxFuelVolume() {
+    public Integer getMaxFuelVolume() {
         return maxFuelVolume;
     }
 
-    public void setMaxFuelVolume(int maxFuelVolume) {
+    public void setMaxFuelVolume(Integer maxFuelVolume) {
         this.maxFuelVolume = maxFuelVolume;
     }
 
@@ -87,4 +80,5 @@ public class VehicleDetails {
     public void setLastServiceDate(String lastServiceDate) {
         this.lastServiceDate = lastServiceDate;
     }
+
 }

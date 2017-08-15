@@ -1,70 +1,64 @@
 package project.cartracker.Entity;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.List;
+import java.sql.Timestamp;
+import java.util.UUID;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "NewVehicle.findByVin", query = "SELECT vehicle FROM NewVehicle vehicle where vehicle.vin=:paramvin")
+})
 public class NewVehicle{
 
     @Id
+    //@Column(name = "Vehicle_Id",columnDefinition = "VARCHAR(17)")
     private String vin;
+    @Column(name = "Latitude")
     private float latitude;
+    @Column(name = "Longitude")
     private float longitude;
-    private String timestamp;
+    @Column(name = "Timestamp")
+    private Timestamp timestamp;
+    @Column(name = "FuelVolume")
     private float fuelVolume;
+    @Column(name = "Speed",columnDefinition = "INT(3)")
     private int speed;
+    @Column(name = "Engine_HP",columnDefinition = "INT(3)")
     private int engineHp;
+    @Column(name = "Engine_Light")
     private boolean checkEngineLightOn;
+    @Column(name = "Engine_Coolant")
     private boolean engineCoolantLow;
+    @Column(name = "Cruise_Control")
     private boolean cruiseControlOn;
+    @Column(name = "Engine_RPM",columnDefinition = "INT(4)")
     private int engineRpm;
-    private String CoolantandLightAlert;
-    private String rpmAlert;
-    private String tireAlert;
-    private String fuelAlert;
-/*
-    @OneToOne
-    private Tyre tires;*//*
 
-    public Tyre getTires() {
+    @OneToOne
+    private Alerts alerts;
+
+    @OneToOne
+    private Tire tires;
+
+
+    public NewVehicle(){
+        this.timestamp = new Timestamp(System.currentTimeMillis());
+         }
+
+    public Alerts getAlerts() {
+        return alerts;
+    }
+
+    public void setAlerts(Alerts alerts) {
+        this.alerts = alerts;
+    }
+
+    public Tire getTires() {
         return tires;
     }
 
-    public void setTires(Tyre tires) {
+    public void setTires(Tire tires) {
         this.tires = tires;
-    }*/
-
-    public String getRpmAlert() {
-        return rpmAlert;
-    }
-
-    public void setRpmAlert(String rpmAlert) {
-        this.rpmAlert = rpmAlert;
-    }
-
-    public String getTireAlert() {
-        return tireAlert;
-    }
-
-    public void setTireAlert(String tireAlert) {
-        this.tireAlert = tireAlert;
-    }
-
-    public String getFuelAlert() {
-        return fuelAlert;
-    }
-
-    public void setFuelAlert(String fuelAlert) {
-        this.fuelAlert = fuelAlert;
-    }
-
-    public String getCoolantandLightAlert() {
-        return CoolantandLightAlert;
-    }
-
-    public void setCoolantandLightAlert(String coolantandLightAlert) {
-        this.CoolantandLightAlert = coolantandLightAlert;
     }
 
     public String getVin() {
@@ -91,11 +85,11 @@ public class NewVehicle{
         this.longitude = longitude;
     }
 
-    public String getTimestamp() {
+    public Timestamp getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(String timestamp) {
+    public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
     }
 
