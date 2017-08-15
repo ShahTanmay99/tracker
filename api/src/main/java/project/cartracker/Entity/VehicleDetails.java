@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class VehicleDetails {
 
         @Id
-        @Column(name = "Vehicle_Id",columnDefinition = "VARCHAR(17)")
+        //@Column(name = "Vehicle_Id",columnDefinition = "VARCHAR(17)")
         private String vin;
         @Column(name = "Make",columnDefinition = "VARCHAR(15)")
         private  String make;

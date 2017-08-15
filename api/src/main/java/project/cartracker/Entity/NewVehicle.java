@@ -2,6 +2,7 @@ package project.cartracker.Entity;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.UUID;
 
 @Entity
 @NamedQueries({
@@ -10,7 +11,7 @@ import java.sql.Timestamp;
 public class NewVehicle{
 
     @Id
-    @Column(name = "Vehicle_Id",columnDefinition = "VARCHAR(17)")
+    //@Column(name = "Vehicle_Id",columnDefinition = "VARCHAR(17)")
     private String vin;
     @Column(name = "Latitude")
     private float latitude;
@@ -30,7 +31,7 @@ public class NewVehicle{
     private boolean engineCoolantLow;
     @Column(name = "Cruise_Control")
     private boolean cruiseControlOn;
-    @Column(name = "Engine_RPM",columnDefinition = "INTEGER(4)")
+    @Column(name = "Engine_RPM",columnDefinition = "INT(4)")
     private int engineRpm;
 
     @OneToOne
@@ -39,9 +40,10 @@ public class NewVehicle{
     @OneToOne
     private Tire tires;
 
+
     public NewVehicle(){
         this.timestamp = new Timestamp(System.currentTimeMillis());
-    }
+         }
 
     public Alerts getAlerts() {
         return alerts;

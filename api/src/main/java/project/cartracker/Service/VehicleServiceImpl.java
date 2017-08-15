@@ -21,7 +21,8 @@ public class VehicleServiceImpl implements VehicleService {
         Alerts alert = repository.checkAlerts(newVehicle);
         NewVehicle existing = repository.findbyVid(newVehicle.getVin());
         if (existing != null) {
-            throw new BadRequestException("Vehicle with Id " + newVehicle.getVin() + " already exists.");
+            return repository.updateVehicle(newVehicle);
+            //throw new BadRequestException("Vehicle with Id " + newVehicle.getVin() + " already exists.");
         }
         return repository.postVehicle(newVehicle, alert);
     }

@@ -8,25 +8,23 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class VehicleRepositoryImpl implements VehicleRepository{
 
     @PersistenceContext private EntityManager entityManager;
     public NewVehicle postVehicle(NewVehicle newVehicle, Alerts alerts) {
-
-        ArrayList<NewVehicle> list = new ArrayList<NewVehicle>();
-        if(list.size()==0)
+        List<NewVehicle> list = new ArrayList<NewVehicle>();
         list.add(newVehicle);
-        else {
-            for (int i = 0; i < list.size(); i++) {
-                list.add(newVehicle);
-            }
-        }
-        entityManager.persist(list.get(0).getTires());
-        entityManager.persist(alerts);
-        entityManager.persist(list.get(0));
+
+            entityManager.persist(list.get(0).getTires());
+            entityManager.persist(list.get(0));
+            entityManager.persist(alerts);
+
         return newVehicle;
     }
 
@@ -46,13 +44,18 @@ public class VehicleRepositoryImpl implements VehicleRepository{
         List<NewVehicle> resultList = query.getResultList();
         if (resultList != null && resultList.size() == 1) {
             return resultList.get(0);
-        } else {
+        }else {
             return null;
         }
     }
     public VehicleDetails updateVehicle(ArrayList<VehicleDetails> vehicleDetails) {
-        entityManager.merge(vehicleDetails.get(0));
+            entityManager.merge(vehicleDetails.get(0));
         return vehicleDetails.get(0);
+    }
+
+    public NewVehicle updateVehicle(NewVehicle newVehicle) {
+        entityManager.merge(newVehicle);
+        return newVehicle;
     }
 
     public VehicleDetails putVehicle(ArrayList<VehicleDetails> vehicleDetails) {
@@ -66,7 +69,6 @@ public class VehicleRepositoryImpl implements VehicleRepository{
         checkFuelAlert(vehicle,existing, alerts);
         checkTireAlert(vehicle, alerts);
         checkLightCoolantAlert(vehicle,alerts);
-        //entityManager.persist(alerts);
         return alerts;
     }
     public Alerts checkRpmAlert(NewVehicle vehicle, VehicleDetails existing, Alerts alerts) {

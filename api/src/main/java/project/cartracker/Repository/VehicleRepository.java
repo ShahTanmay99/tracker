@@ -10,6 +10,7 @@ public interface VehicleRepository {
     NewVehicle postVehicle(NewVehicle newVehicle, Alerts alerts);
     NewVehicle findbyVid(String vin);
     VehicleDetails findbyVin(String vin);
+    NewVehicle updateVehicle(NewVehicle newVehicle);
     VehicleDetails updateVehicle(ArrayList<VehicleDetails> vehicleDetails);
     VehicleDetails putVehicle(ArrayList<VehicleDetails> vehicleDetails);
     Alerts checkAlerts(NewVehicle vehicle);
